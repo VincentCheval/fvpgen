@@ -1,0 +1,459 @@
+mult/2 [AC].
+one/0.
+inv/1.
+exp/2.
+em/2 [AC].
+pmult/2.
+
+one < inv < mult < exp < pmult < em.
+
+=== Terminating Rewrite System
+
+mult(x,one) -> x.
+inv(one) -> one.
+mult(x,inv(x)) -> one.
+mult(inv(x),inv(y)) -> inv(mult(x,y)).
+mult(inv(mult(x,y)),y) -> inv(x).
+inv(inv(x)) -> x.
+inv(mult(inv(x),y)) -> mult(x,inv(y)).
+mult(x,mult(inv(x),y)) -> y.
+mult(inv(x),mult(inv(y),z)) -> mult(inv(mult(x,y)),z).
+mult(inv(mult(x,y)), mult(y,z)) -> mult(inv(x),z).
+exp(exp(x,y),z) -> exp(x,mult(y,z)).
+exp(x,one) -> x.
+pmult(pmult(x,y),z) -> pmult(x,mult(y,z)).
+pmult(x,one) -> x.
+em(pmult(x1,y1),z) -> pmult(em(x1,z),y1).
+
+=== Equational Theory
+
+mult(x,inv(x)) = one.
+mult(x,one) = x.
+exp(exp(x,y),z) = exp(x,mult(y,z)).
+exp(x,one) = x.
+pmult(pmult(x,y),z) = pmult(x,mult(y,z)).
+pmult(x,one) = x.
+em(pmult(x1,y1),z) = pmult(em(x1,z),y1).
+em(z,pmult(x1,y1)) = pmult(em(z,x1),y1).
+em(x,y) = em(y,x).
+
+(*
+
+Result with option -oc: 3240.54s user 19.52s system 100% cpu 54:05.35 total
+Final number of rules in R (minus the name and bin rule): 194
+Number of rules computed: 1402732
+Shown convergent: no
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  (X_2 em X_1) -> (X_2 em X_1)
+  pmult(X_2,X_1) -> pmult(X_2,X_1)
+  exp(X_2,X_1) -> exp(X_2,X_1)
+  (X_2 mult X_1) -> (X_2 mult X_1)
+  inv(X_1) -> inv(X_1)
+  one -> one
+  (pmult(X_1,(X_7 mult (X_3 mult inv((X_8 mult X_6))))) em pmult(X_2,(X_8 mult (X_5 mult inv((X_7 mult X_4)))))) -> pmult((X_2 em X_1),(X_5 mult (X_3 mult inv((X_6 mult X_4)))))
+  ((X_5 mult (X_1 mult inv((X_6 mult X_3)))) mult (X_6 mult (X_2 mult inv((X_5 mult X_4))))) -> (X_1 mult (X_2 mult inv((X_3 mult X_4))))
+  (pmult(X_1,(X_6 mult (X_3 mult inv((X_7 mult X_5))))) em pmult(X_2,(X_7 mult inv((X_6 mult X_4))))) -> pmult((X_2 em X_1),(X_3 mult inv((X_5 mult X_4))))
+  (pmult(X_2,(X_7 mult inv((X_6 mult X_4)))) em pmult(X_1,(X_6 mult (X_3 mult inv((X_7 mult X_5)))))) -> pmult((X_2 em X_1),(X_3 mult inv((X_5 mult X_4))))
+  (pmult(X_2,(X_6 mult (X_4 mult inv((X_7 mult X_5))))) em pmult(X_1,(X_7 mult (X_3 mult inv(X_6))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv(X_5))))
+  (pmult(X_1,(X_7 mult (X_3 mult inv(X_6)))) em pmult(X_2,(X_6 mult (X_4 mult inv((X_7 mult X_5)))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv(X_5))))
+  (pmult(X_2,(X_7 mult (X_4 mult inv(X_5)))) em pmult(X_1,(X_3 mult inv((X_7 mult X_6))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv((X_6 mult X_5)))))
+  (pmult(X_1,(X_3 mult inv((X_7 mult X_5)))) em pmult(X_2,(X_7 mult (X_4 mult inv(X_6))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv((X_6 mult X_5)))))
+  exp(exp(X_1,(X_6 mult (X_2 mult inv((X_7 mult X_4))))),(X_7 mult (X_3 mult inv((X_6 mult X_5))))) -> exp(X_1,(X_3 mult (X_2 mult inv((X_5 mult X_4)))))
+  pmult(pmult(X_1,(X_6 mult (X_2 mult inv((X_7 mult X_4))))),(X_7 mult (X_3 mult inv((X_6 mult X_5))))) -> pmult(X_1,(X_3 mult (X_2 mult inv((X_5 mult X_4)))))
+  ((X_5 mult (X_1 mult inv((X_4 mult X_2)))) mult (X_4 mult inv((X_5 mult X_3)))) -> (X_1 mult inv((X_3 mult X_2)))
+  ((X_4 mult inv((X_5 mult X_2))) mult (X_5 mult (X_1 mult inv((X_4 mult X_3))))) -> (X_1 mult inv((X_3 mult X_2)))
+  ((X_4 mult (X_2 mult inv(X_5))) mult (X_5 mult (X_3 mult inv((X_4 mult X_1))))) -> (inv(X_1) mult (X_2 mult X_3))
+  ((X_4 mult (X_2 mult inv((X_5 mult X_1)))) mult (X_5 mult (X_3 mult inv(X_4)))) -> (inv(X_1) mult (X_2 mult X_3))
+  ((X_1 mult inv((X_5 mult X_3))) mult (X_5 mult (X_2 mult inv(X_4)))) -> (X_2 mult (X_1 mult inv((X_4 mult X_3))))
+  ((X_5 mult (X_1 mult inv(X_2))) mult (X_4 mult inv((X_5 mult X_3)))) -> (X_4 mult (X_1 mult inv((X_3 mult X_2))))
+  (pmult(X_1,(X_5 mult inv(X_3))) em pmult(X_2,(X_6 mult inv(X_4)))) -> pmult((X_2 em X_1),(X_6 mult (X_5 mult inv((X_4 mult X_3)))))
+  (pmult(X_1,(X_5 mult inv((X_6 mult X_3)))) em pmult(X_2,(X_6 mult inv(X_4)))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,(X_6 mult (X_5 mult inv(X_3)))) em pmult(X_2,inv((X_6 mult X_4)))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,inv((X_6 mult X_3))) em pmult(X_2,(X_6 mult (X_5 mult inv(X_4))))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,(X_6 mult inv(X_3))) em pmult(X_2,(X_5 mult inv((X_6 mult X_4))))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,(X_5 mult (X_3 mult inv((X_6 mult X_4))))) em pmult(X_2,(X_6 mult inv(X_5)))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_2,(X_6 mult inv(X_5))) em pmult(X_1,(X_5 mult (X_3 mult inv((X_6 mult X_4)))))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_2,(X_5 mult inv((X_6 mult X_4)))) em pmult(X_1,(X_6 mult (X_3 mult inv(X_5))))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_1,(X_6 mult (X_3 mult inv(X_5)))) em pmult(X_2,(X_5 mult inv((X_6 mult X_4))))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_2,(X_5 mult (X_4 mult inv(X_6)))) em pmult(X_1,(X_6 mult (X_3 mult inv(X_5))))) -> pmult((X_2 em X_1),(X_4 mult X_3))
+  (pmult(X_2,(X_6 mult X_4)) em pmult(X_1,(X_5 mult inv((X_6 mult X_3))))) -> pmult((X_2 em X_1),(X_5 mult (X_4 mult inv(X_3))))
+  (pmult(X_1,(X_4 mult inv((X_6 mult X_3)))) em pmult(X_2,(X_6 mult X_5))) -> pmult((X_2 em X_1),(X_5 mult (X_4 mult inv(X_3))))
+  (pmult(X_2,(X_5 mult inv((X_6 mult X_4)))) em pmult(X_1,(X_6 mult inv((X_5 mult X_3))))) -> pmult((X_2 em X_1),inv((X_4 mult X_3)))
+  pmult(pmult(X_1,(X_6 mult (X_2 mult inv((X_5 mult X_4))))),(X_5 mult (X_3 mult inv(X_6)))) -> pmult(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_6 mult (X_2 mult inv((X_5 mult X_4))))),(X_5 mult (X_3 mult inv(X_6)))) -> exp(X_1,((X_2 mult X_3) mult inv(X_4)))
+  pmult(pmult(X_1,(X_2 mult inv((X_6 mult X_4)))),(X_6 mult (X_3 mult inv(X_5)))) -> pmult(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  pmult(pmult(X_1,(X_5 mult inv((X_6 mult X_3)))),(X_6 mult (X_2 mult inv((X_5 mult X_4))))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_6 mult (X_2 mult inv(X_4)))),(X_3 mult inv((X_6 mult X_5)))) -> pmult(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  exp(exp(X_1,(X_2 mult inv((X_6 mult X_4)))),(X_6 mult (X_3 mult inv(X_5)))) -> exp(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  exp(exp(X_1,(X_5 mult inv((X_6 mult X_3)))),(X_6 mult (X_2 mult inv((X_5 mult X_4))))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_6 mult (X_2 mult inv(X_4)))),(X_3 mult inv((X_6 mult X_5)))) -> exp(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv(X_6)))),(X_6 mult (X_3 mult inv((X_5 mult X_4))))) -> pmult(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv(X_6)))),(X_6 mult (X_3 mult inv((X_5 mult X_4))))) -> exp(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv((X_6 mult X_3))))),(X_6 mult inv((X_5 mult X_4)))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv((X_6 mult X_3))))),(X_6 mult inv((X_5 mult X_4)))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  ((X_3 mult inv((X_4 mult X_1))) mult (X_4 mult inv((X_3 mult X_2)))) -> inv((X_1 mult X_2))
+  ((X_3 mult inv(X_4)) mult (X_4 mult (X_2 mult inv((X_3 mult X_1))))) -> (inv(X_1) mult X_2)
+  ((X_3 mult (X_2 mult inv(X_4))) mult (X_4 mult inv((X_3 mult X_1)))) -> (inv(X_1) mult X_2)
+  ((X_3 mult inv((X_4 mult X_1))) mult (X_4 mult (X_2 mult inv(X_3)))) -> (inv(X_1) mult X_2)
+  ((X_3 mult (X_2 mult inv((X_4 mult X_1)))) mult (X_4 mult inv(X_3))) -> (inv(X_1) mult X_2)
+  ((X_3 mult (X_1 mult inv(X_4))) mult (X_4 mult (X_2 mult inv(X_3)))) -> (X_1 mult X_2)
+  ((X_1 mult inv((X_4 mult X_2))) mult (X_4 mult inv(X_3))) -> (X_1 mult inv((X_2 mult X_3)))
+  ((X_4 mult (X_1 mult inv(X_2))) mult inv((X_4 mult X_3))) -> (X_1 mult inv((X_3 mult X_2)))
+  ((X_3 mult inv((X_4 mult X_1))) mult (X_4 mult X_2)) -> (inv(X_1) mult (X_2 mult X_3))
+  ((X_4 mult X_3) mult (X_2 mult inv((X_4 mult X_1)))) -> (inv(X_1) mult (X_2 mult X_3))
+  (inv((X_4 mult X_1)) mult (X_4 mult (X_3 mult inv(X_2)))) -> (inv((X_1 mult X_2)) mult X_3)
+  ((X_4 mult inv(X_1)) mult (X_3 mult inv((X_4 mult X_2)))) -> (inv((X_1 mult X_2)) mult X_3)
+  ((X_4 mult inv(X_2)) mult (X_3 mult inv(X_1))) -> (inv((X_1 mult X_2)) mult (X_3 mult X_4))
+  (pmult(X_1,(X_5 mult inv(X_3))) em pmult(X_2,inv(X_4))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,inv(X_3)) em pmult(X_2,(X_5 mult inv(X_4)))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_2,inv((X_5 mult X_4))) em pmult(X_1,(X_5 mult inv(X_3)))) -> pmult((X_1 em X_2),inv((X_3 mult X_4)))
+  (pmult(X_2,(X_5 mult inv(X_4))) em pmult(X_1,inv((X_5 mult X_3)))) -> pmult((X_1 em X_2),inv((X_3 mult X_4)))
+  (pmult(X_2,(X_4 mult inv(X_5))) em pmult(X_1,(X_5 mult (X_3 mult inv(X_4))))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,(X_5 mult (X_3 mult inv(X_4)))) em pmult(X_2,(X_4 mult inv(X_5)))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_2,(X_5 mult X_4)) em pmult(X_1,inv((X_5 mult X_3)))) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_1,(X_4 mult inv((X_5 mult X_3)))) em pmult(X_2,X_5)) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_2,X_5) em pmult(X_1,(X_4 mult inv((X_5 mult X_3))))) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_1,inv((X_5 mult X_3))) em pmult(X_2,(X_5 mult X_4))) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_2,(X_4 mult inv(X_5))) em pmult(X_1,(X_5 mult inv((X_4 mult X_3))))) -> pmult((X_1 em X_2),inv(X_3))
+  (pmult(X_1,(X_5 mult inv((X_4 mult X_3)))) em pmult(X_2,(X_4 mult inv(X_5)))) -> pmult((X_1 em X_2),inv(X_3))
+  pmult(pmult(X_1,(X_5 mult inv((X_4 mult X_3)))),(X_4 mult (X_2 mult inv(X_5)))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_5 mult inv((X_4 mult X_3)))),(X_4 mult (X_2 mult inv(X_5)))) -> exp(X_1,(X_2 mult inv(X_3)))
+  (pmult(X_1,(X_5 mult X_3)) em pmult(X_2,(X_4 mult inv(X_5)))) -> pmult((X_1 em X_2),(X_3 mult X_4))
+  (pmult(X_1,(X_3 mult inv(X_5))) em pmult(X_2,(X_5 mult X_4))) -> pmult((X_1 em X_2),(X_3 mult X_4))
+  pmult(pmult(X_1,(X_3 mult inv((X_5 mult X_4)))),(X_5 mult X_2)) -> pmult(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_3 mult inv((X_5 mult X_4)))),(X_5 mult X_2)) -> exp(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_5 mult X_2)),(X_3 mult inv((X_5 mult X_4)))) -> exp(X_1,(X_2 mult (X_3 mult inv(X_4))))
+  exp(exp(X_1,(X_5 mult inv(X_3))),(X_2 mult inv((X_5 mult X_4)))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_4 mult (X_2 mult inv(X_5)))),(X_5 mult inv((X_4 mult X_3)))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult inv(X_5))),(X_5 mult (X_2 mult inv((X_4 mult X_3))))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult (X_2 mult inv((X_5 mult X_3))))),(X_5 mult inv(X_4))) -> exp(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_5 mult X_2)),(X_3 mult inv((X_5 mult X_4)))) -> pmult(X_1,(X_2 mult (X_3 mult inv(X_4))))
+  pmult(pmult(X_1,(X_5 mult inv(X_3))),(X_2 mult inv((X_5 mult X_4)))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_4 mult (X_2 mult inv(X_5)))),(X_5 mult inv((X_4 mult X_3)))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult inv(X_5))),(X_5 mult (X_2 mult inv((X_4 mult X_3))))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult (X_2 mult inv((X_5 mult X_3))))),(X_5 mult inv(X_4))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,inv((X_5 mult X_3))),(X_5 mult (X_2 mult inv(X_4)))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_5 mult inv((X_4 mult X_2)))),(X_4 mult inv((X_5 mult X_3)))) -> pmult(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv(X_4)))),(X_4 mult (X_3 mult inv(X_5)))) -> pmult(X_1,(X_2 mult X_3))
+  exp(exp(X_1,inv((X_5 mult X_3))),(X_5 mult (X_2 mult inv(X_4)))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_5 mult inv((X_4 mult X_2)))),(X_4 mult inv((X_5 mult X_3)))) -> exp(X_1,inv((X_2 mult X_3)))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv(X_4)))),(X_4 mult (X_3 mult inv(X_5)))) -> exp(X_1,(X_2 mult X_3))
+  exp(exp(X_1,(X_2 mult inv(X_4))),(X_3 mult inv(X_5))) -> exp(X_1,(X_2 mult (X_3 mult inv((X_4 mult X_5)))))
+  exp(exp(X_1,(X_2 mult inv((X_5 mult X_3)))),(X_5 mult inv(X_4))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv(X_3)))),inv((X_5 mult X_4))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_2 mult inv(X_4))),(X_3 mult inv(X_5))) -> pmult(X_1,(X_2 mult (X_3 mult inv((X_4 mult X_5)))))
+  pmult(pmult(X_1,(X_2 mult inv((X_5 mult X_3)))),(X_5 mult inv(X_4))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv(X_3)))),inv((X_5 mult X_4))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  ((X_2 mult inv(X_3)) mult (X_3 mult inv((X_2 mult X_1)))) -> inv(X_1)
+  ((X_2 mult inv(X_3)) mult (X_3 mult (X_1 mult inv(X_2)))) -> X_1
+  ((X_2 mult (X_1 mult inv(X_3))) mult (X_3 mult inv(X_2))) -> X_1
+  ((X_2 mult inv((X_3 mult X_1))) mult (X_3 mult inv(X_2))) -> inv(X_1)
+  (pmult(X_1,(X_3 mult inv(X_4))) em pmult(X_2,(X_4 mult inv(X_3)))) -> (X_1 em X_2)
+  (inv((X_3 mult X_1)) mult (X_3 mult inv(X_2))) -> inv((X_1 mult X_2))
+  ((X_3 mult inv(X_1)) mult inv((X_3 mult X_2))) -> inv((X_1 mult X_2))
+  ((X_2 mult inv(X_3)) mult (X_3 mult X_1)) -> (X_1 mult X_2)
+  ((X_1 mult inv(X_2)) mult (X_2 mult inv(X_1))) -> one
+  ((X_3 mult X_2) mult (X_1 mult inv(X_3))) -> (X_1 mult X_2)
+  (X_3 mult (X_2 mult inv((X_3 mult X_1)))) -> (inv(X_1) mult X_2)
+  ((X_3 mult X_1) mult inv((X_3 mult X_2))) -> (X_1 mult inv(X_2))
+  ((X_1 mult inv((X_3 mult X_2))) mult X_3) -> (X_1 mult inv(X_2))
+  ((X_1 mult inv(X_2)) mult inv(X_3)) -> (X_1 mult inv((X_2 mult X_3)))
+  (inv((X_1 mult X_3)) mult (X_3 mult X_2)) -> (inv(X_1) mult X_2)
+  (inv(X_1) mult (inv(X_2) mult X_3)) -> (inv((X_1 mult X_2)) mult X_3)
+  (pmult(X_1,inv(X_3)) em pmult(X_2,inv(X_4))) -> pmult((X_1 em X_2),inv((X_3 mult X_4)))
+  (pmult(X_1,X_4) em pmult(X_2,(X_3 mult inv(X_4)))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,inv(X_4)) em pmult(X_2,(X_4 mult X_3))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,(X_4 mult X_3)) em pmult(X_2,inv(X_4))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,(X_3 mult inv(X_4))) em pmult(X_2,X_4)) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,X_4) em pmult(X_2,inv((X_4 mult X_3)))) -> pmult((X_1 em X_2),inv(X_3))
+  (pmult(X_1,inv((X_4 mult X_3))) em pmult(X_2,X_4)) -> pmult((X_1 em X_2),inv(X_3))
+  pmult(pmult(X_1,inv((X_4 mult X_3))),(X_4 mult X_2)) -> pmult(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,inv((X_4 mult X_3))),(X_4 mult X_2)) -> exp(X_1,(X_2 mult inv(X_3)))
+  (pmult(X_1,X_3) em pmult(X_2,inv(X_3))) -> (X_2 em X_1)
+  (pmult(X_1,inv(X_3)) em pmult(X_2,X_3)) -> (X_2 em X_1)
+  (pmult(X_2,X_4) em pmult(X_1,X_3)) -> pmult((X_2 em X_1),(X_4 mult X_3))
+  pmult(pmult(X_1,inv(X_3)),(X_2 mult inv(X_4))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,inv(X_3)),(X_2 mult inv(X_4))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,X_4),(X_2 mult inv((X_4 mult X_3)))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,X_4),(X_2 mult inv((X_4 mult X_3)))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult inv((X_3 mult X_2)))),(X_3 mult inv(X_4))) -> exp(X_1,inv(X_2))
+  exp(exp(X_1,(X_4 mult X_2)),(X_3 mult inv(X_4))) -> exp(X_1,(X_2 mult X_3))
+  exp(exp(X_1,(X_3 mult inv(X_4))),(X_4 mult (X_2 mult inv(X_3)))) -> exp(X_1,X_2)
+  pmult(pmult(X_1,(X_4 mult inv((X_3 mult X_2)))),(X_3 mult inv(X_4))) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,(X_4 mult X_2)),(X_3 mult inv(X_4))) -> pmult(X_1,(X_2 mult X_3))
+  pmult(pmult(X_1,(X_3 mult inv(X_4))),(X_4 mult (X_2 mult inv(X_3)))) -> pmult(X_1,X_2)
+  exp(exp(X_1,(X_4 mult X_2)),inv((X_4 mult X_3))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult inv(X_2))),inv((X_4 mult X_3))) -> exp(X_1,inv((X_2 mult X_3)))
+  exp(exp(X_1,(X_3 mult inv(X_4))),(X_4 mult inv((X_3 mult X_2)))) -> exp(X_1,inv(X_2))
+  exp(exp(X_1,(X_2 mult inv((X_4 mult X_3)))),X_4) -> exp(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult X_2)),inv((X_4 mult X_3))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult inv(X_2))),inv((X_4 mult X_3))) -> pmult(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,(X_3 mult inv(X_4))),(X_4 mult inv((X_3 mult X_2)))) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,(X_2 mult inv((X_4 mult X_3)))),X_4) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,inv((X_4 mult X_2))),(X_4 mult inv(X_3))) -> pmult(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,(X_3 mult (X_2 mult inv(X_4)))),(X_4 mult inv(X_3))) -> pmult(X_1,X_2)
+  pmult(pmult(X_1,(X_2 mult inv(X_4))),(X_4 mult X_3)) -> pmult(X_1,(X_2 mult X_3))
+  exp(exp(X_1,inv((X_4 mult X_2))),(X_4 mult inv(X_3))) -> exp(X_1,inv((X_2 mult X_3)))
+  exp(exp(X_1,(X_3 mult (X_2 mult inv(X_4)))),(X_4 mult inv(X_3))) -> exp(X_1,X_2)
+  exp(exp(X_1,(X_2 mult inv(X_4))),(X_4 mult X_3)) -> exp(X_1,(X_2 mult X_3))
+  exp(exp(X_1,(X_2 mult inv(X_3))),inv(X_4)) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_2 mult inv(X_3))),inv(X_4)) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_2 mult inv(X_3))),(X_3 mult inv(X_2))) -> X_1
+  exp(exp(X_1,(X_2 mult inv(X_3))),(X_3 mult inv(X_2))) -> X_1
+  (X_2 mult inv((X_2 mult X_1))) -> inv(X_1)
+  (inv(X_2) mult (X_2 mult X_1)) -> X_1
+  ((X_2 mult X_1) mult inv(X_2)) -> X_1
+  ((X_1 mult inv(X_2)) mult X_2) -> X_1
+  (X_1 em pmult(X_2,X_3)) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,X_3) em X_2) -> pmult((X_1 em X_2),X_3)
+  (X_2 mult (inv(X_2) mult X_1)) -> X_1
+  inv((inv(X_1) mult X_2)) -> (X_1 mult inv(X_2))
+  exp(exp(X_1,X_3),(X_2 mult inv(X_3))) -> exp(X_1,X_2)
+  pmult(pmult(X_1,X_3),(X_2 mult inv(X_3))) -> pmult(X_1,X_2)
+  pmult(pmult(X_1,(X_2 mult inv(X_3))),X_3) -> pmult(X_1,X_2)
+  exp(exp(X_1,(X_2 mult inv(X_3))),X_3) -> exp(X_1,X_2)
+  exp(exp(X_1,X_3),inv((X_3 mult X_2))) -> exp(X_1,inv(X_2))
+  exp(exp(X_1,inv((X_3 mult X_2))),X_3) -> exp(X_1,inv(X_2))
+  pmult(pmult(X_1,X_3),inv((X_3 mult X_2))) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,inv((X_3 mult X_2))),X_3) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,inv(X_3)),(X_3 mult X_2)) -> pmult(X_1,X_2)
+  pmult(pmult(X_1,(X_3 mult X_2)),inv(X_3)) -> pmult(X_1,X_2)
+  exp(exp(X_1,inv(X_3)),(X_3 mult X_2)) -> exp(X_1,X_2)
+  exp(exp(X_1,(X_3 mult X_2)),inv(X_3)) -> exp(X_1,X_2)
+  (inv((X_1 mult X_2)) mult X_2) -> inv(X_1)
+  exp(exp(X_1,inv(X_2)),inv(X_3)) -> exp(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,inv(X_2)),inv(X_3)) -> pmult(X_1,inv((X_2 mult X_3)))
+  (inv(X_1) mult inv(X_2)) -> inv((X_1 mult X_2))
+  (inv(X_1) mult X_1) -> one
+  (one mult X_1) -> X_1
+  pmult(pmult(X_1,X_2),inv(X_2)) -> X_1
+  pmult(pmult(X_1,inv(X_2)),X_2) -> X_1
+  pmult(pmult(X_1,X_2),X_3) -> pmult(X_1,(X_2 mult X_3))
+  exp(exp(X_1,X_2),inv(X_2)) -> X_1
+  exp(exp(X_1,inv(X_2)),X_2) -> X_1
+  exp(exp(X_1,X_2),X_3) -> exp(X_1,(X_2 mult X_3))
+  (X_1 mult inv(X_1)) -> one
+  (X_1 mult one) -> X_1
+  pmult(X_1,one) -> X_1
+  exp(X_1,one) -> X_1
+  inv(inv(X_1)) -> X_1
+  inv(one) -> one
+Rewrite system Rn:
+  (X_1 mult one) -> X_1
+  inv(one) -> one
+  (X_1 mult inv(X_1)) -> one
+  (inv(X_1) mult inv(X_2)) -> inv((X_1 mult X_2))
+  (inv((X_1 mult X_2)) mult X_2) -> inv(X_1)
+  inv(inv(X_1)) -> X_1
+  inv((inv(X_1) mult X_2)) -> (X_1 mult inv(X_2))
+  (X_2 mult (inv(X_2) mult X_1)) -> X_1
+  (inv(X_1) mult (inv(X_2) mult X_3)) -> (inv((X_1 mult X_2)) mult X_3)
+  (inv((X_1 mult X_3)) mult (X_3 mult X_2)) -> (inv(X_1) mult X_2)
+  exp(exp(X_1,X_2),X_3) -> exp(X_1,(X_2 mult X_3))
+  exp(X_1,one) -> X_1
+  pmult(pmult(X_1,X_2),X_3) -> pmult(X_1,(X_2 mult X_3))
+  pmult(X_1,one) -> X_1
+  (pmult(X_1,X_3) em X_2) -> pmult((X_1 em X_2),X_3)
+Equations En
+  (X_1 mult X_2) = (X_2 mult X_1)
+  ((X_1 mult X_2) mult X_3) = (X_1 mult (X_2 mult X_3))
+  (X_1 em X_2) = (X_2 em X_1)
+  ((X_1 em X_2) em X_3) = (X_1 em (X_2 em X_3))
+
+The following rewrite system is En-convergent for E
+  (pmult(X_1,(X_7 mult (X_3 mult inv((X_8 mult X_6))))) em pmult(X_2,(X_8 mult (X_5 mult inv((X_7 mult X_4)))))) -> pmult((X_2 em X_1),(X_5 mult (X_3 mult inv((X_6 mult X_4)))))
+  ((X_5 mult (X_1 mult inv((X_6 mult X_3)))) mult (X_6 mult (X_2 mult inv((X_5 mult X_4))))) -> (X_1 mult (X_2 mult inv((X_3 mult X_4))))
+  (pmult(X_1,(X_6 mult (X_3 mult inv((X_7 mult X_5))))) em pmult(X_2,(X_7 mult inv((X_6 mult X_4))))) -> pmult((X_2 em X_1),(X_3 mult inv((X_5 mult X_4))))
+  (pmult(X_2,(X_7 mult inv((X_6 mult X_4)))) em pmult(X_1,(X_6 mult (X_3 mult inv((X_7 mult X_5)))))) -> pmult((X_2 em X_1),(X_3 mult inv((X_5 mult X_4))))
+  (pmult(X_2,(X_6 mult (X_4 mult inv((X_7 mult X_5))))) em pmult(X_1,(X_7 mult (X_3 mult inv(X_6))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv(X_5))))
+  (pmult(X_1,(X_7 mult (X_3 mult inv(X_6)))) em pmult(X_2,(X_6 mult (X_4 mult inv((X_7 mult X_5)))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv(X_5))))
+  (pmult(X_2,(X_7 mult (X_4 mult inv(X_5)))) em pmult(X_1,(X_3 mult inv((X_7 mult X_6))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv((X_6 mult X_5)))))
+  (pmult(X_1,(X_3 mult inv((X_7 mult X_5)))) em pmult(X_2,(X_7 mult (X_4 mult inv(X_6))))) -> pmult((X_2 em X_1),(X_4 mult (X_3 mult inv((X_6 mult X_5)))))
+  exp(exp(X_1,(X_6 mult (X_2 mult inv((X_7 mult X_4))))),(X_7 mult (X_3 mult inv((X_6 mult X_5))))) -> exp(X_1,(X_3 mult (X_2 mult inv((X_5 mult X_4)))))
+  pmult(pmult(X_1,(X_6 mult (X_2 mult inv((X_7 mult X_4))))),(X_7 mult (X_3 mult inv((X_6 mult X_5))))) -> pmult(X_1,(X_3 mult (X_2 mult inv((X_5 mult X_4)))))
+  ((X_5 mult (X_1 mult inv((X_4 mult X_2)))) mult (X_4 mult inv((X_5 mult X_3)))) -> (X_1 mult inv((X_3 mult X_2)))
+  ((X_4 mult inv((X_5 mult X_2))) mult (X_5 mult (X_1 mult inv((X_4 mult X_3))))) -> (X_1 mult inv((X_3 mult X_2)))
+  ((X_4 mult (X_2 mult inv(X_5))) mult (X_5 mult (X_3 mult inv((X_4 mult X_1))))) -> (inv(X_1) mult (X_2 mult X_3))
+  ((X_4 mult (X_2 mult inv((X_5 mult X_1)))) mult (X_5 mult (X_3 mult inv(X_4)))) -> (inv(X_1) mult (X_2 mult X_3))
+  ((X_1 mult inv((X_5 mult X_3))) mult (X_5 mult (X_2 mult inv(X_4)))) -> (X_2 mult (X_1 mult inv((X_4 mult X_3))))
+  ((X_5 mult (X_1 mult inv(X_2))) mult (X_4 mult inv((X_5 mult X_3)))) -> (X_4 mult (X_1 mult inv((X_3 mult X_2))))
+  (pmult(X_1,(X_5 mult inv(X_3))) em pmult(X_2,(X_6 mult inv(X_4)))) -> pmult((X_2 em X_1),(X_6 mult (X_5 mult inv((X_4 mult X_3)))))
+  (pmult(X_1,(X_5 mult inv((X_6 mult X_3)))) em pmult(X_2,(X_6 mult inv(X_4)))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,(X_6 mult (X_5 mult inv(X_3)))) em pmult(X_2,inv((X_6 mult X_4)))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,inv((X_6 mult X_3))) em pmult(X_2,(X_6 mult (X_5 mult inv(X_4))))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,(X_6 mult inv(X_3))) em pmult(X_2,(X_5 mult inv((X_6 mult X_4))))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,(X_5 mult (X_3 mult inv((X_6 mult X_4))))) em pmult(X_2,(X_6 mult inv(X_5)))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_2,(X_6 mult inv(X_5))) em pmult(X_1,(X_5 mult (X_3 mult inv((X_6 mult X_4)))))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_2,(X_5 mult inv((X_6 mult X_4)))) em pmult(X_1,(X_6 mult (X_3 mult inv(X_5))))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_1,(X_6 mult (X_3 mult inv(X_5)))) em pmult(X_2,(X_5 mult inv((X_6 mult X_4))))) -> pmult((X_2 em X_1),(X_3 mult inv(X_4)))
+  (pmult(X_2,(X_5 mult (X_4 mult inv(X_6)))) em pmult(X_1,(X_6 mult (X_3 mult inv(X_5))))) -> pmult((X_2 em X_1),(X_4 mult X_3))
+  (pmult(X_2,(X_6 mult X_4)) em pmult(X_1,(X_5 mult inv((X_6 mult X_3))))) -> pmult((X_2 em X_1),(X_5 mult (X_4 mult inv(X_3))))
+  (pmult(X_1,(X_4 mult inv((X_6 mult X_3)))) em pmult(X_2,(X_6 mult X_5))) -> pmult((X_2 em X_1),(X_5 mult (X_4 mult inv(X_3))))
+  (pmult(X_2,(X_5 mult inv((X_6 mult X_4)))) em pmult(X_1,(X_6 mult inv((X_5 mult X_3))))) -> pmult((X_2 em X_1),inv((X_4 mult X_3)))
+  pmult(pmult(X_1,(X_6 mult (X_2 mult inv((X_5 mult X_4))))),(X_5 mult (X_3 mult inv(X_6)))) -> pmult(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_6 mult (X_2 mult inv((X_5 mult X_4))))),(X_5 mult (X_3 mult inv(X_6)))) -> exp(X_1,((X_2 mult X_3) mult inv(X_4)))
+  pmult(pmult(X_1,(X_2 mult inv((X_6 mult X_4)))),(X_6 mult (X_3 mult inv(X_5)))) -> pmult(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  pmult(pmult(X_1,(X_5 mult inv((X_6 mult X_3)))),(X_6 mult (X_2 mult inv((X_5 mult X_4))))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_6 mult (X_2 mult inv(X_4)))),(X_3 mult inv((X_6 mult X_5)))) -> pmult(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  exp(exp(X_1,(X_2 mult inv((X_6 mult X_4)))),(X_6 mult (X_3 mult inv(X_5)))) -> exp(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  exp(exp(X_1,(X_5 mult inv((X_6 mult X_3)))),(X_6 mult (X_2 mult inv((X_5 mult X_4))))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_6 mult (X_2 mult inv(X_4)))),(X_3 mult inv((X_6 mult X_5)))) -> exp(X_1,((X_2 mult X_3) mult inv((X_4 mult X_5))))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv(X_6)))),(X_6 mult (X_3 mult inv((X_5 mult X_4))))) -> pmult(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv(X_6)))),(X_6 mult (X_3 mult inv((X_5 mult X_4))))) -> exp(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv((X_6 mult X_3))))),(X_6 mult inv((X_5 mult X_4)))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv((X_6 mult X_3))))),(X_6 mult inv((X_5 mult X_4)))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  ((X_3 mult inv((X_4 mult X_1))) mult (X_4 mult inv((X_3 mult X_2)))) -> inv((X_1 mult X_2))
+  ((X_3 mult inv(X_4)) mult (X_4 mult (X_2 mult inv((X_3 mult X_1))))) -> (inv(X_1) mult X_2)
+  ((X_3 mult (X_2 mult inv(X_4))) mult (X_4 mult inv((X_3 mult X_1)))) -> (inv(X_1) mult X_2)
+  ((X_3 mult inv((X_4 mult X_1))) mult (X_4 mult (X_2 mult inv(X_3)))) -> (inv(X_1) mult X_2)
+  ((X_3 mult (X_2 mult inv((X_4 mult X_1)))) mult (X_4 mult inv(X_3))) -> (inv(X_1) mult X_2)
+  ((X_3 mult (X_1 mult inv(X_4))) mult (X_4 mult (X_2 mult inv(X_3)))) -> (X_1 mult X_2)
+  ((X_1 mult inv((X_4 mult X_2))) mult (X_4 mult inv(X_3))) -> (X_1 mult inv((X_2 mult X_3)))
+  ((X_4 mult (X_1 mult inv(X_2))) mult inv((X_4 mult X_3))) -> (X_1 mult inv((X_3 mult X_2)))
+  ((X_3 mult inv((X_4 mult X_1))) mult (X_4 mult X_2)) -> (inv(X_1) mult (X_2 mult X_3))
+  ((X_4 mult X_3) mult (X_2 mult inv((X_4 mult X_1)))) -> (inv(X_1) mult (X_2 mult X_3))
+  (inv((X_4 mult X_1)) mult (X_4 mult (X_3 mult inv(X_2)))) -> (inv((X_1 mult X_2)) mult X_3)
+  ((X_4 mult inv(X_1)) mult (X_3 mult inv((X_4 mult X_2)))) -> (inv((X_1 mult X_2)) mult X_3)
+  ((X_4 mult inv(X_2)) mult (X_3 mult inv(X_1))) -> (inv((X_1 mult X_2)) mult (X_3 mult X_4))
+  (pmult(X_1,(X_5 mult inv(X_3))) em pmult(X_2,inv(X_4))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_1,inv(X_3)) em pmult(X_2,(X_5 mult inv(X_4)))) -> pmult((X_2 em X_1),(X_5 mult inv((X_4 mult X_3))))
+  (pmult(X_2,inv((X_5 mult X_4))) em pmult(X_1,(X_5 mult inv(X_3)))) -> pmult((X_1 em X_2),inv((X_3 mult X_4)))
+  (pmult(X_2,(X_5 mult inv(X_4))) em pmult(X_1,inv((X_5 mult X_3)))) -> pmult((X_1 em X_2),inv((X_3 mult X_4)))
+  (pmult(X_2,(X_4 mult inv(X_5))) em pmult(X_1,(X_5 mult (X_3 mult inv(X_4))))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,(X_5 mult (X_3 mult inv(X_4)))) em pmult(X_2,(X_4 mult inv(X_5)))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_2,(X_5 mult X_4)) em pmult(X_1,inv((X_5 mult X_3)))) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_1,(X_4 mult inv((X_5 mult X_3)))) em pmult(X_2,X_5)) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_2,X_5) em pmult(X_1,(X_4 mult inv((X_5 mult X_3))))) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_1,inv((X_5 mult X_3))) em pmult(X_2,(X_5 mult X_4))) -> pmult((X_2 em X_1),(X_4 mult inv(X_3)))
+  (pmult(X_2,(X_4 mult inv(X_5))) em pmult(X_1,(X_5 mult inv((X_4 mult X_3))))) -> pmult((X_1 em X_2),inv(X_3))
+  (pmult(X_1,(X_5 mult inv((X_4 mult X_3)))) em pmult(X_2,(X_4 mult inv(X_5)))) -> pmult((X_1 em X_2),inv(X_3))
+  pmult(pmult(X_1,(X_5 mult inv((X_4 mult X_3)))),(X_4 mult (X_2 mult inv(X_5)))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_5 mult inv((X_4 mult X_3)))),(X_4 mult (X_2 mult inv(X_5)))) -> exp(X_1,(X_2 mult inv(X_3)))
+  (pmult(X_1,(X_5 mult X_3)) em pmult(X_2,(X_4 mult inv(X_5)))) -> pmult((X_1 em X_2),(X_3 mult X_4))
+  (pmult(X_1,(X_3 mult inv(X_5))) em pmult(X_2,(X_5 mult X_4))) -> pmult((X_1 em X_2),(X_3 mult X_4))
+  pmult(pmult(X_1,(X_3 mult inv((X_5 mult X_4)))),(X_5 mult X_2)) -> pmult(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_3 mult inv((X_5 mult X_4)))),(X_5 mult X_2)) -> exp(X_1,((X_2 mult X_3) mult inv(X_4)))
+  exp(exp(X_1,(X_5 mult X_2)),(X_3 mult inv((X_5 mult X_4)))) -> exp(X_1,(X_2 mult (X_3 mult inv(X_4))))
+  exp(exp(X_1,(X_5 mult inv(X_3))),(X_2 mult inv((X_5 mult X_4)))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_4 mult (X_2 mult inv(X_5)))),(X_5 mult inv((X_4 mult X_3)))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult inv(X_5))),(X_5 mult (X_2 mult inv((X_4 mult X_3))))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult (X_2 mult inv((X_5 mult X_3))))),(X_5 mult inv(X_4))) -> exp(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_5 mult X_2)),(X_3 mult inv((X_5 mult X_4)))) -> pmult(X_1,(X_2 mult (X_3 mult inv(X_4))))
+  pmult(pmult(X_1,(X_5 mult inv(X_3))),(X_2 mult inv((X_5 mult X_4)))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_4 mult (X_2 mult inv(X_5)))),(X_5 mult inv((X_4 mult X_3)))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult inv(X_5))),(X_5 mult (X_2 mult inv((X_4 mult X_3))))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult (X_2 mult inv((X_5 mult X_3))))),(X_5 mult inv(X_4))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,inv((X_5 mult X_3))),(X_5 mult (X_2 mult inv(X_4)))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_5 mult inv((X_4 mult X_2)))),(X_4 mult inv((X_5 mult X_3)))) -> pmult(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv(X_4)))),(X_4 mult (X_3 mult inv(X_5)))) -> pmult(X_1,(X_2 mult X_3))
+  exp(exp(X_1,inv((X_5 mult X_3))),(X_5 mult (X_2 mult inv(X_4)))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_5 mult inv((X_4 mult X_2)))),(X_4 mult inv((X_5 mult X_3)))) -> exp(X_1,inv((X_2 mult X_3)))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv(X_4)))),(X_4 mult (X_3 mult inv(X_5)))) -> exp(X_1,(X_2 mult X_3))
+  exp(exp(X_1,(X_2 mult inv(X_4))),(X_3 mult inv(X_5))) -> exp(X_1,(X_2 mult (X_3 mult inv((X_4 mult X_5)))))
+  exp(exp(X_1,(X_2 mult inv((X_5 mult X_3)))),(X_5 mult inv(X_4))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,(X_5 mult (X_2 mult inv(X_3)))),inv((X_5 mult X_4))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_2 mult inv(X_4))),(X_3 mult inv(X_5))) -> pmult(X_1,(X_2 mult (X_3 mult inv((X_4 mult X_5)))))
+  pmult(pmult(X_1,(X_2 mult inv((X_5 mult X_3)))),(X_5 mult inv(X_4))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_5 mult (X_2 mult inv(X_3)))),inv((X_5 mult X_4))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  ((X_2 mult inv(X_3)) mult (X_3 mult inv((X_2 mult X_1)))) -> inv(X_1)
+  ((X_2 mult inv(X_3)) mult (X_3 mult (X_1 mult inv(X_2)))) -> X_1
+  ((X_2 mult (X_1 mult inv(X_3))) mult (X_3 mult inv(X_2))) -> X_1
+  ((X_2 mult inv((X_3 mult X_1))) mult (X_3 mult inv(X_2))) -> inv(X_1)
+  (pmult(X_1,(X_3 mult inv(X_4))) em pmult(X_2,(X_4 mult inv(X_3)))) -> (X_1 em X_2)
+  (inv((X_3 mult X_1)) mult (X_3 mult inv(X_2))) -> inv((X_1 mult X_2))
+  ((X_3 mult inv(X_1)) mult inv((X_3 mult X_2))) -> inv((X_1 mult X_2))
+  ((X_2 mult inv(X_3)) mult (X_3 mult X_1)) -> (X_1 mult X_2)
+  ((X_1 mult inv(X_2)) mult (X_2 mult inv(X_1))) -> one
+  ((X_3 mult X_2) mult (X_1 mult inv(X_3))) -> (X_1 mult X_2)
+  (X_3 mult (X_2 mult inv((X_3 mult X_1)))) -> (inv(X_1) mult X_2)
+  ((X_3 mult X_1) mult inv((X_3 mult X_2))) -> (X_1 mult inv(X_2))
+  ((X_1 mult inv((X_3 mult X_2))) mult X_3) -> (X_1 mult inv(X_2))
+  ((X_1 mult inv(X_2)) mult inv(X_3)) -> (X_1 mult inv((X_2 mult X_3)))
+  (inv((X_1 mult X_3)) mult (X_3 mult X_2)) -> (inv(X_1) mult X_2)
+  (inv(X_1) mult (inv(X_2) mult X_3)) -> (inv((X_1 mult X_2)) mult X_3)
+  (pmult(X_1,inv(X_3)) em pmult(X_2,inv(X_4))) -> pmult((X_1 em X_2),inv((X_3 mult X_4)))
+  (pmult(X_1,X_4) em pmult(X_2,(X_3 mult inv(X_4)))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,inv(X_4)) em pmult(X_2,(X_4 mult X_3))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,(X_4 mult X_3)) em pmult(X_2,inv(X_4))) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,(X_3 mult inv(X_4))) em pmult(X_2,X_4)) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,X_4) em pmult(X_2,inv((X_4 mult X_3)))) -> pmult((X_1 em X_2),inv(X_3))
+  (pmult(X_1,inv((X_4 mult X_3))) em pmult(X_2,X_4)) -> pmult((X_1 em X_2),inv(X_3))
+  pmult(pmult(X_1,inv((X_4 mult X_3))),(X_4 mult X_2)) -> pmult(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,inv((X_4 mult X_3))),(X_4 mult X_2)) -> exp(X_1,(X_2 mult inv(X_3)))
+  (pmult(X_1,X_3) em pmult(X_2,inv(X_3))) -> (X_2 em X_1)
+  (pmult(X_1,inv(X_3)) em pmult(X_2,X_3)) -> (X_2 em X_1)
+  (pmult(X_2,X_4) em pmult(X_1,X_3)) -> pmult((X_2 em X_1),(X_4 mult X_3))
+  pmult(pmult(X_1,inv(X_3)),(X_2 mult inv(X_4))) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  exp(exp(X_1,inv(X_3)),(X_2 mult inv(X_4))) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,X_4),(X_2 mult inv((X_4 mult X_3)))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,X_4),(X_2 mult inv((X_4 mult X_3)))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult inv((X_3 mult X_2)))),(X_3 mult inv(X_4))) -> exp(X_1,inv(X_2))
+  exp(exp(X_1,(X_4 mult X_2)),(X_3 mult inv(X_4))) -> exp(X_1,(X_2 mult X_3))
+  exp(exp(X_1,(X_3 mult inv(X_4))),(X_4 mult (X_2 mult inv(X_3)))) -> exp(X_1,X_2)
+  pmult(pmult(X_1,(X_4 mult inv((X_3 mult X_2)))),(X_3 mult inv(X_4))) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,(X_4 mult X_2)),(X_3 mult inv(X_4))) -> pmult(X_1,(X_2 mult X_3))
+  pmult(pmult(X_1,(X_3 mult inv(X_4))),(X_4 mult (X_2 mult inv(X_3)))) -> pmult(X_1,X_2)
+  exp(exp(X_1,(X_4 mult X_2)),inv((X_4 mult X_3))) -> exp(X_1,(X_2 mult inv(X_3)))
+  exp(exp(X_1,(X_4 mult inv(X_2))),inv((X_4 mult X_3))) -> exp(X_1,inv((X_2 mult X_3)))
+  exp(exp(X_1,(X_3 mult inv(X_4))),(X_4 mult inv((X_3 mult X_2)))) -> exp(X_1,inv(X_2))
+  exp(exp(X_1,(X_2 mult inv((X_4 mult X_3)))),X_4) -> exp(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult X_2)),inv((X_4 mult X_3))) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,(X_4 mult inv(X_2))),inv((X_4 mult X_3))) -> pmult(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,(X_3 mult inv(X_4))),(X_4 mult inv((X_3 mult X_2)))) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,(X_2 mult inv((X_4 mult X_3)))),X_4) -> pmult(X_1,(X_2 mult inv(X_3)))
+  pmult(pmult(X_1,inv((X_4 mult X_2))),(X_4 mult inv(X_3))) -> pmult(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,(X_3 mult (X_2 mult inv(X_4)))),(X_4 mult inv(X_3))) -> pmult(X_1,X_2)
+  pmult(pmult(X_1,(X_2 mult inv(X_4))),(X_4 mult X_3)) -> pmult(X_1,(X_2 mult X_3))
+  exp(exp(X_1,inv((X_4 mult X_2))),(X_4 mult inv(X_3))) -> exp(X_1,inv((X_2 mult X_3)))
+  exp(exp(X_1,(X_3 mult (X_2 mult inv(X_4)))),(X_4 mult inv(X_3))) -> exp(X_1,X_2)
+  exp(exp(X_1,(X_2 mult inv(X_4))),(X_4 mult X_3)) -> exp(X_1,(X_2 mult X_3))
+  exp(exp(X_1,(X_2 mult inv(X_3))),inv(X_4)) -> exp(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_2 mult inv(X_3))),inv(X_4)) -> pmult(X_1,(X_2 mult inv((X_3 mult X_4))))
+  pmult(pmult(X_1,(X_2 mult inv(X_3))),(X_3 mult inv(X_2))) -> X_1
+  exp(exp(X_1,(X_2 mult inv(X_3))),(X_3 mult inv(X_2))) -> X_1
+  (X_2 mult inv((X_2 mult X_1))) -> inv(X_1)
+  (inv(X_2) mult (X_2 mult X_1)) -> X_1
+  ((X_2 mult X_1) mult inv(X_2)) -> X_1
+  ((X_1 mult inv(X_2)) mult X_2) -> X_1
+  (X_1 em pmult(X_2,X_3)) -> pmult((X_1 em X_2),X_3)
+  (pmult(X_1,X_3) em X_2) -> pmult((X_1 em X_2),X_3)
+  (X_2 mult (inv(X_2) mult X_1)) -> X_1
+  inv((inv(X_1) mult X_2)) -> (X_1 mult inv(X_2))
+  exp(exp(X_1,X_3),(X_2 mult inv(X_3))) -> exp(X_1,X_2)
+  pmult(pmult(X_1,X_3),(X_2 mult inv(X_3))) -> pmult(X_1,X_2)
+  pmult(pmult(X_1,(X_2 mult inv(X_3))),X_3) -> pmult(X_1,X_2)
+  exp(exp(X_1,(X_2 mult inv(X_3))),X_3) -> exp(X_1,X_2)
+  exp(exp(X_1,X_3),inv((X_3 mult X_2))) -> exp(X_1,inv(X_2))
+  exp(exp(X_1,inv((X_3 mult X_2))),X_3) -> exp(X_1,inv(X_2))
+  pmult(pmult(X_1,X_3),inv((X_3 mult X_2))) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,inv((X_3 mult X_2))),X_3) -> pmult(X_1,inv(X_2))
+  pmult(pmult(X_1,inv(X_3)),(X_3 mult X_2)) -> pmult(X_1,X_2)
+  pmult(pmult(X_1,(X_3 mult X_2)),inv(X_3)) -> pmult(X_1,X_2)
+  exp(exp(X_1,inv(X_3)),(X_3 mult X_2)) -> exp(X_1,X_2)
+  exp(exp(X_1,(X_3 mult X_2)),inv(X_3)) -> exp(X_1,X_2)
+  (inv((X_1 mult X_2)) mult X_2) -> inv(X_1)
+  exp(exp(X_1,inv(X_2)),inv(X_3)) -> exp(X_1,inv((X_2 mult X_3)))
+  pmult(pmult(X_1,inv(X_2)),inv(X_3)) -> pmult(X_1,inv((X_2 mult X_3)))
+  (inv(X_1) mult inv(X_2)) -> inv((X_1 mult X_2))
+  (inv(X_1) mult X_1) -> one
+  (one mult X_1) -> X_1
+  pmult(pmult(X_1,X_2),inv(X_2)) -> X_1
+  pmult(pmult(X_1,inv(X_2)),X_2) -> X_1
+  pmult(pmult(X_1,X_2),X_3) -> pmult(X_1,(X_2 mult X_3))
+  exp(exp(X_1,X_2),inv(X_2)) -> X_1
+  exp(exp(X_1,inv(X_2)),X_2) -> X_1
+  exp(exp(X_1,X_2),X_3) -> exp(X_1,(X_2 mult X_3))
+  (X_1 mult inv(X_1)) -> one
+  (X_1 mult one) -> X_1
+  pmult(X_1,one) -> X_1
+  exp(X_1,one) -> X_1
+  inv(inv(X_1)) -> X_1
+  inv(one) -> one
+
+Number of rules computed: 1405446
+
+*)

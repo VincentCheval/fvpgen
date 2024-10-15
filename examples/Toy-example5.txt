@@ -1,0 +1,49 @@
+f/2 .
+g/2 [AC].
+h/1.
+h2/1.
+
+
+f < g < h < h2.
+
+=== Equational Theory
+
+h(x) = x.
+f(g(h(x),x),x) = x.
+h2(x) = g(h(x),h(x)).
+
+(*
+
+Result: 0.04s user 0.02s system 53% cpu 0.113 total
+Final number of rules in R (minus the name and bin rule): 8
+Number of rules computed: 51
+Shown convergent: yes
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  h2(X_1) -> h2(X_1)
+  h(X_1) -> h(X_1)
+  (X_2 g X_1) -> (X_2 g X_1)
+  f(X_2,X_1) -> f(X_2,X_1)
+  amin -> amin
+  h2(X_1) -> (X_1 g X_1)
+  f((X_1 g X_1),X_1) -> X_1
+  h(X_1) -> X_1
+Rewrite system Rn:
+  h(X_1) -> X_1
+  f((X_1 g X_1),X_1) -> X_1
+  h2(X_1) -> (X_1 g X_1)
+Equations En
+  (X_1 g X_2) = (X_2 g X_1)
+  ((X_1 g X_2) g X_3) = (X_1 g (X_2 g X_3))
+
+The following rewrite system is En-convergent for E
+  h2(X_1) -> (X_1 g X_1)
+  f((X_1 g X_1),X_1) -> X_1
+  h(X_1) -> X_1
+
+Number of rules computed: 51
+
+*)

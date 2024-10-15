@@ -1,0 +1,46 @@
+plus/2 [AC].
+zero/0.
+zero < plus.
+
+=== Equational Theory
+
+plus(x,x) = zero.
+plus(x,zero) = x.
+
+(*
+
+Result: 1.51s user 0.14s system 102% cpu 1.601 total
+Final number of rules in R (minus the name and bin rule): 8
+Number of rules computed: 38524
+Shown convergent: yes
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  (X_2 plus X_1) -> (X_2 plus X_1)
+  zero -> zero
+  ((X_3 plus X_2) plus (X_3 plus X_1)) -> (X_1 plus X_2)
+  (X_2 plus (X_2 plus X_1)) -> X_1
+  ((X_2 plus X_1) plus X_2) -> X_1
+  (zero plus X_1) -> X_1
+  (X_1 plus zero) -> X_1
+  (X_1 plus X_1) -> zero
+Rewrite system Rn:
+  (X_1 plus X_1) -> zero
+  (X_1 plus zero) -> X_1
+Equations En
+  (X_1 plus X_2) = (X_2 plus X_1)
+  ((X_1 plus X_2) plus X_3) = (X_1 plus (X_2 plus X_3))
+
+The following rewrite system is En-convergent for E
+  ((X_3 plus X_2) plus (X_3 plus X_1)) -> (X_1 plus X_2)
+  (X_2 plus (X_2 plus X_1)) -> X_1
+  ((X_2 plus X_1) plus X_2) -> X_1
+  (zero plus X_1) -> X_1
+  (X_1 plus zero) -> X_1
+  (X_1 plus X_1) -> zero
+
+Number of rules computed: 38524
+
+*)

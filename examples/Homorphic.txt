@@ -1,0 +1,37 @@
+plus/2.
+h/1.
+plusOut/2.
+
+h < plus < plusOut.
+
+=== Equational Theory
+
+h(plus(x,y)) = plusOut(h(x),h(y)).
+
+(*
+
+Result: 0.04s user 0.03s system 48% cpu 0.128 total
+Final number of rules in R (minus the name and bin rule): 5
+Number of rules computed: 10
+Shown convergent: yes
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  plusOut(X_2,X_1) -> plusOut(X_2,X_1)
+  plus(X_2,X_1) -> plus(X_2,X_1)
+  h(X_1) -> h(X_1)
+  amin -> amin
+  plusOut(h(X_1),h(X_2)) -> h(plus(X_1,X_2))
+Rewrite system Rn:
+  plusOut(h(X_1),h(X_2)) -> h(plus(X_1,X_2))
+Equations En
+  Empty
+
+The following rewrite system is En-convergent for E
+  plusOut(h(X_1),h(X_2)) -> h(plus(X_1,X_2))
+
+Number of rules computed: 10
+
+*)

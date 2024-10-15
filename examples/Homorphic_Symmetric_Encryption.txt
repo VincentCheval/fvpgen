@@ -1,0 +1,44 @@
+plus/2 [AC].
+plusOut/2.
+enc/2.
+dec/2.
+
+plus < enc < dec < plusOut.
+
+=== Equational Theory
+
+plusOut(enc(x,k),enc(y,k)) = enc(plus(x,y),k).
+dec(enc(x,k),k) = x.
+
+(*
+
+Result: 0.04s user 0.03s system 48% cpu 0.128 total
+Final number of rules in R (minus the name and bin rule): 7
+Number of rules computed: 24
+Shown convergent: yes
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  plusOut(X_2,X_1) -> plusOut(X_2,X_1)
+  dec(X_2,X_1) -> dec(X_2,X_1)
+  enc(X_2,X_1) -> enc(X_2,X_1)
+  (X_2 plus X_1) -> (X_2 plus X_1)
+  amin -> amin
+  plusOut(enc(X_1,X_3),enc(X_2,X_3)) -> enc((X_1 plus X_2),X_3)
+  dec(enc(X_1,X_2),X_2) -> X_1
+Rewrite system Rn:
+  plusOut(enc(X_1,X_3),enc(X_2,X_3)) -> enc((X_1 plus X_2),X_3)
+  dec(enc(X_1,X_2),X_2) -> X_1
+Equations En
+  (X_1 plus X_2) = (X_2 plus X_1)
+  ((X_1 plus X_2) plus X_3) = (X_1 plus (X_2 plus X_3))
+
+The following rewrite system is En-convergent for E
+  plusOut(enc(X_1,X_3),enc(X_2,X_3)) -> enc((X_1 plus X_2),X_3)
+  dec(enc(X_1,X_2),X_2) -> X_1
+
+Number of rules computed: 24
+
+*)

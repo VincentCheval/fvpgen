@@ -1,0 +1,48 @@
+mult/2 [AC].
+one/0.
+exp/2.
+g/0.
+gI/0.
+decrypt/3.
+encrypt/4.
+
+one < g < gI < mult < exp < encrypt < decrypt.
+
+=== Equational Theory
+
+exp(gI,x) = x.
+exp(one,x) = one.
+exp(exp(g,x),y) = exp(exp(g,y),x).
+
+(*
+
+Result: 0.05s user 0.01s system 69% cpu 0.088 total
+Final number of rules in R (minus the name and bin rule): 10
+Number of rules computed: 32
+Shown convergent: no
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  decrypt(X_3,X_2,X_1) -> decrypt(X_3,X_2,X_1)
+  encrypt(X_4,X_3,X_2,X_1) -> encrypt(X_4,X_3,X_2,X_1)
+  exp(X_2,X_1) -> exp(X_2,X_1)
+  (X_2 mult X_1) -> (X_2 mult X_1)
+  gI -> gI
+  g -> g
+  one -> one
+  exp(exp(g,X_2),X_1) -> exp(exp(g,X_1),X_2)
+  exp(one,X_1) -> one
+  exp(gI,X_1) -> X_1
+Rewrite system Rn:
+  exp(gI,X_1) -> X_1
+  exp(one,X_1) -> one
+Equations En
+  (X_1 mult X_2) = (X_2 mult X_1)
+  ((X_1 mult X_2) mult X_3) = (X_1 mult (X_2 mult X_3))
+
+We could not show that the extended signature was shown to induce a En-convergent rewrite system for E
+
+Number of rules computed: 32
+*)

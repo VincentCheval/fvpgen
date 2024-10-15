@@ -1,0 +1,105 @@
+
+mult/2 [AC].
+one/0.
+exp/2.
+g/0.
+decrypt/3.
+encrypt/4.
+checksign/3.
+getmess/1.
+sign/3.
+
+one < g < mult < exp < encrypt < decrypt < checksign < getmess < sign.
+
+=== Equational Theory
+
+mult(x,one) = x.
+exp(exp(z,x),y) = exp(z,mult(x,y)).
+exp(one,x) = one.
+decrypt(encrypt(m, x, exp(x, y), r), x, y) = m.
+checksign(sign(m, x, s), x, exp(x, s)) = m.
+getmess(sign(m, x, s)) = m.
+
+(*
+
+Taken from [X] Usenix 2024.
+
+Result:  1.36s user 0.18s system 102% cpu 1.503 total
+Final number of rules in R (minus the name and bin rule): 26
+Number of rules computed: 2184
+Shown convergent: yes
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  sign(X_3,X_2,X_1) -> sign(X_3,X_2,X_1)
+  getmess(X_1) -> getmess(X_1)
+  checksign(X_3,X_2,X_1) -> checksign(X_3,X_2,X_1)
+  decrypt(X_3,X_2,X_1) -> decrypt(X_3,X_2,X_1)
+  encrypt(X_4,X_3,X_2,X_1) -> encrypt(X_4,X_3,X_2,X_1)
+  exp(X_2,X_1) -> exp(X_2,X_1)
+  (X_2 mult X_1) -> (X_2 mult X_1)
+  g -> g
+  one -> one
+  (one mult X_1) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,X_3),exp(X_2,(X_3 mult X_4)),X_5),exp(X_2,X_3),X_4) -> X_1
+  checksign(sign(X_1,exp(X_2,X_3),X_4),exp(X_2,X_3),exp(X_2,(X_3 mult X_4))) -> X_1
+  exp(exp(X_1,X_2),one) -> exp(X_1,X_2)
+  exp(exp(X_1,one),X_2) -> exp(X_1,X_2)
+  exp(exp(X_1,X_2),X_3) -> exp(X_1,(X_2 mult X_3))
+  (X_1 mult one) -> X_1
+  checksign(sign(X_1,exp(X_2,X_3),one),exp(X_2,X_3),exp(X_2,X_3)) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,X_3),exp(X_2,X_3),X_4),exp(X_2,X_3),one) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,one),exp(X_2,X_3),X_4),exp(X_2,one),X_3) -> X_1
+  checksign(sign(X_1,exp(X_2,one),X_3),exp(X_2,one),exp(X_2,X_3)) -> X_1
+  checksign(sign(X_1,one,X_2),one,one) -> X_1
+  decrypt(encrypt(X_1,one,one,X_2),one,X_3) -> X_1
+  getmess(sign(X_1,X_2,X_3)) -> X_1
+  checksign(sign(X_1,X_2,X_3),X_2,exp(X_2,X_3)) -> X_1
+  decrypt(encrypt(X_1,X_2,exp(X_2,X_3),X_4),X_2,X_3) -> X_1
+  exp(one,X_1) -> one
+Rewrite system Rn:
+  (X_1 mult one) -> X_1
+  exp(exp(X_1,X_2),X_3) -> exp(X_1,(X_2 mult X_3))
+  exp(one,X_1) -> one
+  decrypt(encrypt(X_1,X_2,exp(X_2,X_3),X_4),X_2,X_3) -> X_1
+  checksign(sign(X_1,X_2,X_3),X_2,exp(X_2,X_3)) -> X_1
+  getmess(sign(X_1,X_2,X_3)) -> X_1
+  decrypt(encrypt(X_1,one,one,X_2),one,X_3) -> X_1
+  checksign(sign(X_1,one,X_2),one,one) -> X_1
+  checksign(sign(X_1,exp(X_2,X_3),X_4),exp(X_2,X_3),exp(X_2,(X_3 mult X_4))) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,X_3),exp(X_2,(X_3 mult X_4)),X_5),exp(X_2,X_3),X_4) -> X_1
+  checksign(sign(X_1,exp(X_2,one),X_3),exp(X_2,one),exp(X_2,X_3)) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,one),exp(X_2,X_3),X_4),exp(X_2,one),X_3) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,X_3),exp(X_2,X_3),X_4),exp(X_2,X_3),one) -> X_1
+  checksign(sign(X_1,exp(X_2,X_3),one),exp(X_2,X_3),exp(X_2,X_3)) -> X_1
+Equations En
+  (X_1 mult X_2) = (X_2 mult X_1)
+  ((X_1 mult X_2) mult X_3) = (X_1 mult (X_2 mult X_3))
+
+The following rewrite system is En-convergent for E
+  (one mult X_1) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,X_3),exp(X_2,(X_3 mult X_4)),X_5),exp(X_2,X_3),X_4) -> X_1
+  checksign(sign(X_1,exp(X_2,X_3),X_4),exp(X_2,X_3),exp(X_2,(X_3 mult X_4))) -> X_1
+  exp(exp(X_1,X_2),one) -> exp(X_1,X_2)
+  exp(exp(X_1,one),X_2) -> exp(X_1,X_2)
+  exp(exp(X_1,X_2),X_3) -> exp(X_1,(X_2 mult X_3))
+  (X_1 mult one) -> X_1
+  checksign(sign(X_1,exp(X_2,X_3),one),exp(X_2,X_3),exp(X_2,X_3)) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,X_3),exp(X_2,X_3),X_4),exp(X_2,X_3),one) -> X_1
+  decrypt(encrypt(X_1,exp(X_2,one),exp(X_2,X_3),X_4),exp(X_2,one),X_3) -> X_1
+  checksign(sign(X_1,exp(X_2,one),X_3),exp(X_2,one),exp(X_2,X_3)) -> X_1
+  checksign(sign(X_1,one,X_2),one,one) -> X_1
+  decrypt(encrypt(X_1,one,one,X_2),one,X_3) -> X_1
+  getmess(sign(X_1,X_2,X_3)) -> X_1
+  checksign(sign(X_1,X_2,X_3),X_2,exp(X_2,X_3)) -> X_1
+  decrypt(encrypt(X_1,X_2,exp(X_2,X_3),X_4),X_2,X_3) -> X_1
+  exp(one,X_1) -> one
+
+Number of rules computed: 2184
+
+*)
+
+
+

@@ -1,0 +1,56 @@
+
+unblind/2.
+blind/2.
+sign/2.
+getmsg/1.
+verify/2.
+vk/1.
+ok/0.
+
+ok < vk < getmsg < sign < blind < unblind < verify.
+
+=== Equational Theory
+
+unblind(blind(x,y),y) = x.
+getmsg(sign(x,y)) = x.
+unblind(sign(blind(x,y),z),y) = sign(x,z).
+verify(sign(x,y),vk(y)) = ok.
+
+(*
+
+Result in 0.05s user 0.02s system 75% cpu 0.087 total
+Final number of rules in R (minus the name and bin rule): 11
+Number of rules computed: 72
+Shown convergent: yes
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  verify(X_2,X_1) -> verify(X_2,X_1)
+  unblind(X_2,X_1) -> unblind(X_2,X_1)
+  blind(X_2,X_1) -> blind(X_2,X_1)
+  sign(X_2,X_1) -> sign(X_2,X_1)
+  getmsg(X_1) -> getmsg(X_1)
+  vk(X_1) -> vk(X_1)
+  ok -> ok
+  verify(sign(X_1,X_2),vk(X_2)) -> ok
+  unblind(sign(blind(X_1,X_3),X_2),X_3) -> sign(X_1,X_2)
+  getmsg(sign(X_1,X_2)) -> X_1
+  unblind(blind(X_1,X_2),X_2) -> X_1
+Rewrite system Rn:
+  unblind(blind(X_1,X_2),X_2) -> X_1
+  getmsg(sign(X_1,X_2)) -> X_1
+  unblind(sign(blind(X_1,X_3),X_2),X_3) -> sign(X_1,X_2)
+  verify(sign(X_1,X_2),vk(X_2)) -> ok
+Equations En
+  Empty
+
+The following rewrite system is En-convergent for E
+  verify(sign(X_1,X_2),vk(X_2)) -> ok
+  unblind(sign(blind(X_1,X_3),X_2),X_3) -> sign(X_1,X_2)
+  getmsg(sign(X_1,X_2)) -> X_1
+  unblind(blind(X_1,X_2),X_2) -> X_1
+
+Number of rules computed: 72
+*)

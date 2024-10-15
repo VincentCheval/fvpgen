@@ -1,0 +1,35 @@
+invalid/0.
+pk/1.
+dh/2.
+
+invalid < pk < dh.
+
+=== Equational Theory
+
+dh(x,pk(y)) = dh(y,pk(x)).
+dh(x,invalid) = invalid.
+
+(*
+
+Result: 0.04s user 0.02s system 69% cpu 0.095 total
+Final number of rules in R (minus the name and bin rule): 5
+Number of rules computed: 21
+Shown convergent: no
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  dh(X_2,X_1) -> dh(X_2,X_1)
+  pk(X_1) -> pk(X_1)
+  invalid -> invalid
+  dh(X_2,pk(X_1)) -> dh(X_1,pk(X_2))
+  dh(X_1,invalid) -> invalid
+Rewrite system Rn:
+  dh(X_1,invalid) -> invalid
+Equations En
+  Empty
+
+We could not show that the extended signature was shown to induce a En-convergent rewrite system for E
+
+*)

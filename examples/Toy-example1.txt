@@ -1,0 +1,50 @@
+f/2.
+g/2.
+h/1.
+p/2.
+zero/0.
+
+
+zero < p < f < g < h .
+
+=== Equational Theory
+
+g(x,y) = f(x,z).
+h(x) = zero.
+f(zero,z) = p(x,z).
+
+(*
+
+Result: 0.10s user 0.03s system 86% cpu 0.147 total
+Final number of rules in R (minus the name and bin rule): 14
+Number of rules computed: 218
+Shown convergent: no
+
+---Extended signature
+Rewrite system R:
+  name(X_1) -> name(X_1)
+  bin(X_2,X_1) -> bin(X_2,X_1)
+  h(X_1) -> h(X_1)
+  g(X_2,X_1) -> g(X_2,X_1)
+  f(X_2,X_1) -> f(X_2,X_1)
+  p(X_2,X_1) -> p(X_2,X_1)
+  zero -> zero
+  p(X_1,X_2) -> p(zero,zero)
+  g(zero,X_1) -> p(zero,zero)
+  p(X_1,X_2) -> p(zero,X_2)
+  f(X_1,X_2) -> f(X_1,zero)
+  p(zero,X_1) -> p(zero,zero)
+  f(zero,X_1) -> p(zero,zero)
+  f(zero,X_1) -> p(zero,X_1)
+  h(X_1) -> zero
+  g(X_1,X_2) -> f(X_1,zero)
+Rewrite system Rn:
+  g(X_1,X_2) -> f(X_1,zero)
+  h(X_1) -> zero
+  f(zero,X_1) -> p(zero,X_1)
+  f(zero,X_1) -> p(zero,zero)
+Equations En
+  Empty
+
+We could not show that the extended signature was shown to induce a En-convergent rewrite system for E
+*)
