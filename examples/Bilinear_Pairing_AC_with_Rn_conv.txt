@@ -454,6 +454,5 @@ The following rewrite system is En-convergent for E
   inv(one) -> one
 
 Number of rules computed: 1405446
-./fvp_prototype -oc examples/Bilinear_Pairing_commutative_with_Rn_conv.txt  3240.54s user 19.52s system 100% cpu 54:05.35 total
 
 *)
